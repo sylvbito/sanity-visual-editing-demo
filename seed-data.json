@@ -8,7 +8,10 @@
     "_id": "home",
     "_type": "page",
     "name": "Home",
-    "slug": {"_type": "slug", "current": "home"},
+    "slug": {
+      "_type": "slug",
+      "current": "home"
+    },
     "heading": "A controlled page builder, not a free-for-all.",
     "subheading": "Constraint-driven visual editing, live in the browser.",
     "pageBuilder": [
@@ -22,7 +25,12 @@
             "_key": "h1",
             "_type": "block",
             "children": [
-              {"_key": "h1s", "_type": "span", "marks": [], "text": "Editors change copy, layout, theme, spacing, and buttons without learning the implementation details underneath."}
+              {
+                "_key": "h1s",
+                "_type": "span",
+                "marks": [],
+                "text": "Editors change copy, layout, theme, spacing, and buttons without learning the implementation details underneath."
+              }
             ],
             "markDefs": [],
             "style": "normal"
@@ -34,14 +42,24 @@
             "_type": "button",
             "buttonText": "Open the Studio",
             "style": "auto",
-            "link": {"_type": "link", "linkType": "href", "href": "http://localhost:3333", "openInNewTab": true}
+            "link": {
+              "_type": "link",
+              "linkType": "href",
+              "href": "http://localhost:3333",
+              "openInNewTab": true
+            }
           },
           {
             "_key": "b2",
             "_type": "button",
             "buttonText": "Visual editing docs",
             "style": "auto",
-            "link": {"_type": "link", "linkType": "href", "href": "https://www.sanity.io/docs/visual-editing", "openInNewTab": true}
+            "link": {
+              "_type": "link",
+              "linkType": "href",
+              "href": "https://www.sanity.io/docs/visual-editing",
+              "openInNewTab": true
+            }
           }
         ],
         "theme": "dark",
@@ -61,7 +79,12 @@
             "_key": "p1",
             "_type": "block",
             "children": [
-              {"_key": "p1s", "_type": "span", "marks": [], "text": "Themes, alignment, measure, spacing, and section order are controlled with a narrow set of options. Cleaner content editing, fewer ways to wreck the layout."}
+              {
+                "_key": "p1s",
+                "_type": "span",
+                "marks": [],
+                "text": "Themes, alignment, measure, spacing, and section order are controlled with a narrow set of options. Cleaner content editing, fewer ways to wreck the layout."
+              }
             ],
             "markDefs": [],
             "style": "normal"
@@ -70,7 +93,12 @@
             "_key": "p2",
             "_type": "block",
             "children": [
-              {"_key": "p2s", "_type": "span", "marks": [], "text": "Use Presentation to click directly into fields, drag sections around, and watch the preview update without digging through a messy schema tree."}
+              {
+                "_key": "p2s",
+                "_type": "span",
+                "marks": [],
+                "text": "Use Presentation to click directly into fields, drag sections around, and watch the preview update without digging through a messy schema tree."
+              }
             ],
             "markDefs": [],
             "style": "normal"
@@ -93,7 +121,12 @@
             "_key": "n1",
             "_type": "block",
             "children": [
-              {"_key": "n1s", "_type": "span", "marks": [], "text": "Drag sections into a different order, switch the hero theme, duplicate a button, and flip the visual mode between none, inline, and background. The preview should stay coherent."}
+              {
+                "_key": "n1s",
+                "_type": "span",
+                "marks": [],
+                "text": "Drag sections into a different order, switch the hero theme, duplicate a button, and flip the visual mode between none, inline, and background. The preview should stay coherent."
+              }
             ],
             "markDefs": [],
             "style": "normal"
@@ -102,7 +135,12 @@
             "_key": "n2",
             "_type": "block",
             "children": [
-              {"_key": "n2s", "_type": "span", "marks": [], "text": "If a control feels too open-ended, tighten the schema rather than trusting editors to remember the design system. That is the whole point."}
+              {
+                "_key": "n2s",
+                "_type": "span",
+                "marks": [],
+                "text": "If a control feels too open-ended, tighten the schema rather than trusting editors to remember the design system. That is the whole point."
+              }
             ],
             "markDefs": [],
             "style": "normal"
