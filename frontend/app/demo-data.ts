@@ -1,10 +1,15 @@
+// Static demo content — rendered when no Sanity CMS data exists.
+// This lets you test the editing patterns before connecting a real project.
+
+import type {GetPageQueryResult} from '@/sanity.types'
+
 const paragraph = (text: string, key: string) => ({
   _key: key,
-  _type: 'block',
+  _type: 'block' as const,
   children: [
     {
       _key: `${key}-span`,
-      _type: 'span',
+      _type: 'span' as const,
       marks: [],
       text,
     },
@@ -13,21 +18,13 @@ const paragraph = (text: string, key: string) => ({
   style: 'normal',
 })
 
-export const title = 'Sanity Visual Editing Demo'
-
-export const description = [
-  paragraph(
-    'A stripped-back Sanity playground for testing live preview, click-to-edit, constrained section controls, and drag-to-reorder page building.',
-    'settings-description',
-  ),
-]
-
-export const ogImageTitle = 'Sanity Visual Editing Demo'
-
-export const homePageInitialValue = {
-  name: 'Home demo',
+export const demoPage: GetPageQueryResult = {
+  _id: 'demo-home',
+  _type: 'page',
+  name: 'Home',
+  slug: {current: 'home', _type: 'slug'},
   heading: 'A controlled page builder, not a free-for-all.',
-  subheading: 'Edit structure in Sanity, keep the frontend deliberately bare.',
+  subheading: 'Edit structure in the Studio, keep the frontend deliberately bare.',
   pageBuilder: [
     {
       _key: 'hero-demo',
@@ -44,7 +41,7 @@ export const homePageInitialValue = {
         {
           _key: 'hero-button-primary',
           _type: 'button',
-          buttonText: 'Open the studio',
+          buttonText: 'Open the Studio',
           style: 'auto',
           link: {
             _type: 'link',
@@ -56,7 +53,7 @@ export const homePageInitialValue = {
         {
           _key: 'hero-button-secondary',
           _type: 'button',
-          buttonText: 'Read the setup guide',
+          buttonText: 'Visual editing docs',
           style: 'auto',
           link: {
             _type: 'link',
@@ -71,8 +68,7 @@ export const homePageInitialValue = {
       contentWidth: 'comfortable',
       spacingTop: 'pageTop',
       spacingBottom: 'roomy',
-      visualMode: 'inline',
-      mediaLayout: 'imageFirst',
+      visualMode: 'none',
     },
     {
       _key: 'principles-demo',
@@ -119,4 +115,4 @@ export const homePageInitialValue = {
       spacingBottom: 'roomy',
     },
   ],
-}
+} as unknown as GetPageQueryResult

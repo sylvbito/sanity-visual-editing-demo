@@ -7,109 +7,177 @@ import {
   ControlsIcon,
 } from '@sanity/icons'
 
-/**
- * Call to action schema object.  Objects are reusable schema structures document.
- * Learn more: https://www.sanity.io/docs/studio/object-type
- */
+const spacingOptions = [
+  {title: 'Tight', value: 'tight'},
+  {title: 'Regular', value: 'regular'},
+  {title: 'Roomy', value: 'roomy'},
+  {title: 'Page top', value: 'pageTop'},
+]
 
 export const callToAction = defineType({
   name: 'callToAction',
-  title: 'Call to Action',
+  title: 'Hero / CTA Section',
   type: 'object',
   icon: BulbOutlineIcon,
   groups: [
-    {
-      name: 'contents',
-      icon: ComposeSparklesIcon,
-      default: true,
-    },
-    {
-      name: 'media',
-      icon: ImageIcon,
-    },
-    {
-      name: 'button',
-      icon: LinkIcon,
-    },
-    {
-      name: 'designSystem',
-      icon: ControlsIcon,
-    },
+    {name: 'content', title: 'Content', icon: ComposeSparklesIcon, default: true},
+    {name: 'buttons', title: 'Buttons', icon: LinkIcon},
+    {name: 'visuals', title: 'Visuals', icon: ImageIcon},
+    {name: 'layout', title: 'Layout', icon: ControlsIcon},
   ],
   fields: [
     defineField({
       name: 'eyebrow',
       title: 'Eyebrow',
       type: 'string',
-      group: 'contents',
+      group: 'content',
     }),
     defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
       validation: (Rule) => Rule.required(),
-      group: 'contents',
+      description: 'Shorter headings work better here. Think strong statement, not paragraph.',
+      group: 'content',
     }),
     defineField({
       name: 'body',
+      title: 'Body',
       type: 'blockContentTextOnly',
-      group: 'contents',
+      group: 'content',
     }),
     defineField({
-      name: 'button',
-      type: 'button',
-      group: 'button',
+      name: 'buttons',
+      title: 'Buttons',
+      type: 'array',
+      of: [{type: 'button'}],
+      validation: (Rule) => Rule.max(2),
+      description: 'Keep this to one or two actions. The second button is styled automatically unless you override it.',
+      group: 'buttons',
+    }),
+    defineField({
+      name: 'visualMode',
+      title: 'Visual mode',
+      type: 'string',
+      initialValue: 'inline',
+      options: {
+        list: [
+          {title: 'No image', value: 'none'},
+          {title: 'Inline image', value: 'inline'},
+          {title: 'Background image', value: 'background'},
+        ],
+        layout: 'radio',
+      },
+      group: 'visuals',
     }),
     defineField({
       name: 'image',
+      title: 'Image',
       type: 'image',
-      group: 'media',
+      options: {hotspot: true},
+      hidden: ({parent}) => parent?.visualMode === 'none',
+      group: 'visuals',
+    }),
+    defineField({
+      name: 'mediaLayout',
+      title: 'Content order',
+      type: 'string',
+      initialValue: 'textFirst',
       options: {
-        hotspot: true,
+        list: [
+          {title: 'Text then image', value: 'textFirst'},
+          {title: 'Image then text', value: 'imageFirst'},
+        ],
+        layout: 'radio',
       },
+      hidden: ({parent}) => parent?.visualMode !== 'inline' || !parent?.image?.asset,
+      group: 'visuals',
+    }),
+    defineField({
+      name: 'overlayStrength',
+      title: 'Background overlay',
+      type: 'number',
+      initialValue: 52,
+      validation: (Rule) => Rule.min(0).max(90),
+      description: 'Only used when the image is acting as the section background.',
+      hidden: ({parent}) => parent?.visualMode !== 'background' || !parent?.image?.asset,
+      group: 'visuals',
     }),
     defineField({
       name: 'theme',
-      type: 'string',
       title: 'Theme',
+      type: 'string',
+      initialValue: 'light',
       options: {
         list: [
           {title: 'Light', value: 'light'},
           {title: 'Dark', value: 'dark'},
+          {title: 'Accent', value: 'accent'},
         ],
         layout: 'radio',
       },
-      description: 'Use dark theme with white tile grid background',
-      initialValue: 'light',
-      group: 'designSystem',
+      group: 'layout',
     }),
     defineField({
-      name: 'contentAlignment',
-      title: 'Content Order',
+      name: 'textAlign',
+      title: 'Text alignment',
       type: 'string',
-      initialValue: 'textFirst',
-      description: 'Does text content or image come first?',
+      initialValue: 'left',
       options: {
         list: [
-          {title: 'Text then Image', value: 'textFirst'},
-          {title: 'Image then Text', value: 'imageFirst'},
+          {title: 'Left', value: 'left'},
+          {title: 'Center', value: 'center'},
         ],
         layout: 'radio',
       },
-      hidden: ({parent}) => !Boolean(parent?.image?.asset),
-      group: 'designSystem',
+      group: 'layout',
+    }),
+    defineField({
+      name: 'contentWidth',
+      title: 'Content width',
+      type: 'string',
+      initialValue: 'comfortable',
+      options: {
+        list: [
+          {title: 'Compact', value: 'compact'},
+          {title: 'Comfortable', value: 'comfortable'},
+          {title: 'Wide', value: 'wide'},
+        ],
+        layout: 'radio',
+      },
+      description: 'Approved text widths only. No random pixel values.',
+      group: 'layout',
+    }),
+    defineField({
+      name: 'spacingTop',
+      title: 'Top spacing',
+      type: 'string',
+      initialValue: 'regular',
+      options: {list: spacingOptions, layout: 'radio'},
+      group: 'layout',
+    }),
+    defineField({
+      name: 'spacingBottom',
+      title: 'Bottom spacing',
+      type: 'string',
+      initialValue: 'regular',
+      options: {
+        list: spacingOptions.filter((option) => option.value !== 'pageTop'),
+        layout: 'radio',
+      },
+      group: 'layout',
     }),
   ],
   preview: {
     select: {
       title: 'heading',
       image: 'image.asset',
+      theme: 'theme',
     },
-    prepare(selection) {
-      const {title, image} = selection
+    prepare({title, image, theme}) {
       return {
-        title: title,
-        subtitle: 'Call to Action',
+        title: title || 'Untitled hero section',
+        subtitle: `Hero / CTA • ${theme || 'light'}`,
         media: image || undefined,
       }
     },

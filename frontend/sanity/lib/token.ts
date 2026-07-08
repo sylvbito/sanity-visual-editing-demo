@@ -1,7 +1,7 @@
 import 'server-only'
 
-export const token = process.env.SANITY_API_READ_TOKEN
+export const token = process.env.SANITY_API_READ_TOKEN || ''
 
 if (!token) {
-  throw new Error('Missing SANITY_API_READ_TOKEN')
+  console.warn('⚠️  SANITY_API_READ_TOKEN is not set. Running in read-only demo mode (no live preview or draft content).')
 }

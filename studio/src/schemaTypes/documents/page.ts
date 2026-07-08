@@ -1,38 +1,35 @@
 import {defineField, defineType} from 'sanity'
-import {DocumentIcon} from '@sanity/icons'
+import type {Page} from '../../sanity.types'
 
-/**
- * Page schema.  Define and edit the fields for the 'page' content type.
- * Learn more: https://www.sanity.io/docs/studio/schema-types
- */
+import * as demo from '../../lib/initialValues'
 
 export const page = defineType({
   name: 'page',
   title: 'Page',
   type: 'document',
-  icon: DocumentIcon,
   fields: [
     defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Page name',
       type: 'string',
+      initialValue: 'Untitled',
       validation: (Rule) => Rule.required(),
+      description: 'Used in the sidebar and page list.',
     }),
-
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      initialValue: {current: 'home'},
+      options: {source: 'name', maxLength: 96},
       validation: (Rule) => Rule.required(),
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
     }),
     defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
+      initialValue: 'A controlled page builder, not a free-for-all.',
+      description: 'Shorter headings work better. Think strong statement, not paragraph.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -42,21 +39,32 @@ export const page = defineType({
     }),
     defineField({
       name: 'pageBuilder',
-      title: 'Page builder',
+      title: 'Sections',
       type: 'array',
-      of: [{type: 'callToAction'}, {type: 'infoSection'}],
+      of: [
+        {type: 'callToAction'},
+        {type: 'infoSection'},
+      ],
       options: {
         insertMenu: {
-          // Configure the "Add Item" menu to display a thumbnail preview of the content type. https://www.sanity.io/docs/studio/array-type#efb1fe03459d
+          filter: 'showAsAction',
           views: [
-            {
-              name: 'grid',
-              previewImageUrl: (schemaTypeName) =>
-                `/static/page-builder-thumbnails/${schemaTypeName}.webp`,
-            },
+            {name: 'grid', previewImageUrl: (schemaTypeName) => `/static/${schemaTypeName}.png`},
           ],
         },
       },
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'slug.current',
+    },
+    prepare({title, subtitle}) {
+      return {
+        title: title || 'Untitled page',
+        subtitle: subtitle ? `/${subtitle}` : '',
+      }
+    },
+  },
 })

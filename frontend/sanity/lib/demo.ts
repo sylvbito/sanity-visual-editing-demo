@@ -1,59 +1,24 @@
 /**
- * Demo data used as placeholders and initial values for the blog
+ * Demo data used as placeholders when no Sanity content exists.
  */
 
-export const title = 'Sanity + Next.js'
+export const title = 'Visual Editing Demo'
 
 export const description = [
   {
-    _key: '9f1a629887fd',
+    _key: 'demo-desc',
     _type: 'block',
     children: [
       {
-        _key: '4a58edd077880',
+        _key: 'demo-desc-span',
         _type: 'span',
         marks: [],
-        text: 'A statically generated blog example using ',
-      },
-      {
-        _key: '4a58edd077881',
-        _type: 'span',
-        marks: ['ec5b66c9b1e0'],
-        text: 'Next.js',
-      },
-      {
-        _key: '4a58edd077882',
-        _type: 'span',
-        marks: [],
-        text: ' and ',
-      },
-      {
-        _key: '4a58edd077883',
-        _type: 'span',
-        marks: ['1f8991913ea8'],
-        text: 'Sanity',
-      },
-      {
-        _key: '4a58edd077884',
-        _type: 'span',
-        marks: [],
-        text: '.',
+        text: 'A constraint-driven Sanity CMS playground for testing live preview, visual editing, and section-building patterns.',
       },
     ],
-    markDefs: [
-      {
-        _key: 'ec5b66c9b1e0',
-        _type: 'link',
-        href: 'https://nextjs.org/',
-      },
-      {
-        _key: '1f8991913ea8',
-        _type: 'link',
-        href: 'https://sanity.io/',
-      },
-    ],
+    markDefs: [],
     style: 'normal',
   },
 ]
 
-export const ogImageTitle = 'A Next.js Blog with a Native Authoring Experience'
+export const ogImageTitle = 'Visual Editing Demo'
