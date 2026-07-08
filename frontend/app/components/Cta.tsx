@@ -188,7 +188,7 @@ export default function CTA({block}: CtaProps) {
   // No image mode
   return (
     <section className={`${styles.bg} ${top} ${bottom}`}>
-      <div className="container flex flex-col items-center justify-center">
+      <div className={`container flex flex-col ${align === 'center' ? 'items-center justify-center' : ''}`}>
         {contentBlock}
       </div>
     </section>

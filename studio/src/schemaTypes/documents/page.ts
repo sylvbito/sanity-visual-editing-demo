@@ -7,6 +7,12 @@ export const page = defineType({
   name: 'page',
   title: 'Page',
   type: 'document',
+  initialValue: {
+    name: 'New page',
+    heading: 'A new page',
+    subheading: 'Add sections in the builder below.',
+    pageBuilder: [],
+  },
   fields: [
     defineField({
       name: 'name',
@@ -47,7 +53,7 @@ export const page = defineType({
       ],
       options: {
         insertMenu: {
-          filter: 'showAsAction',
+          filter: true,
           views: [
             {name: 'grid', previewImageUrl: (schemaTypeName) => `/static/${schemaTypeName}.png`},
           ],

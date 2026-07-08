@@ -1,5 +1,9 @@
 import {defineField, defineType} from 'sanity'
-import {TextIcon} from '@sanity/icons'
+import {
+  TextIcon,
+  ComposeSparklesIcon,
+  ControlsIcon,
+} from '@sanity/icons'
 
 const spacingOptions = [
   {title: 'Tight', value: 'tight'},
@@ -12,23 +16,30 @@ export const infoSection = defineType({
   title: 'Content Section',
   type: 'object',
   icon: TextIcon,
+  groups: [
+    {name: 'content', title: 'Content', icon: ComposeSparklesIcon, default: true},
+    {name: 'layout', title: 'Layout', icon: ControlsIcon},
+  ],
   fields: [
     defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'subheading',
       title: 'Kicker',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'content',
       title: 'Content',
       type: 'blockContent',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'theme',
@@ -43,6 +54,7 @@ export const infoSection = defineType({
         ],
         layout: 'radio',
       },
+      group: 'layout',
     }),
     defineField({
       name: 'textAlign',
@@ -56,6 +68,7 @@ export const infoSection = defineType({
         ],
         layout: 'radio',
       },
+      group: 'layout',
     }),
     defineField({
       name: 'measure',
@@ -71,13 +84,15 @@ export const infoSection = defineType({
         ],
         layout: 'radio',
       },
-      description: 'Use a named measure instead of manual max-width tweaking.',
+      description: 'Named measure instead of manual max-width tweaking.',
+      group: 'layout',
     }),
     defineField({
       name: 'showDivider',
       title: 'Show divider',
       type: 'boolean',
       initialValue: false,
+      group: 'layout',
     }),
     defineField({
       name: 'spacingTop',
@@ -85,6 +100,7 @@ export const infoSection = defineType({
       type: 'string',
       initialValue: 'regular',
       options: {list: spacingOptions, layout: 'radio'},
+      group: 'layout',
     }),
     defineField({
       name: 'spacingBottom',
@@ -92,6 +108,7 @@ export const infoSection = defineType({
       type: 'string',
       initialValue: 'regular',
       options: {list: spacingOptions, layout: 'radio'},
+      group: 'layout',
     }),
   ],
   preview: {

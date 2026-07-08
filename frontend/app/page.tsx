@@ -45,7 +45,7 @@ export default async function Page() {
         </div>
       </div>
       <div className="mt-4 container">
-        <div className="bg-brand/10 border border-brand/30 rounded-lg px-6 py-3 text-sm font-mono text-gray-700">
+        <div className="bg-cyan-50 border border-cyan-200 rounded-lg px-6 py-3 text-sm font-mono text-gray-700">
           🔧 <strong>Static demo mode</strong> — no Sanity project connected. Connect a project to enable the CMS and live preview.
         </div>
       </div>
