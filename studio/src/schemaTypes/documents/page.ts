@@ -50,6 +50,7 @@ export const page = defineType({
       of: [
         {type: 'callToAction'},
         {type: 'infoSection'},
+        {type: 'testimonial'},
       ],
       options: {
         insertMenu: {

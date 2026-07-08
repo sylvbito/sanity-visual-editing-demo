@@ -1,10 +1,13 @@
 import {person} from './documents/person'
 import {page} from './documents/page'
+import {navigation} from './documents/navigation'
 import {post} from './documents/post'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
+import {testimonial} from './objects/testimonial'
 import {settings} from './singletons/settings'
 import {link} from './objects/link'
+import {navLink} from './objects/navLink'
 import {blockContent} from './objects/blockContent'
 import button from './objects/button'
 import {blockContentTextOnly} from './objects/blockContentTextOnly'
@@ -16,6 +19,7 @@ export const schemaTypes = [
   settings,
   // Documents
   page,
+  navigation,
   post,
   person,
   // Objects
@@ -23,6 +27,8 @@ export const schemaTypes = [
   blockContent,
   blockContentTextOnly,
   infoSection,
+  testimonial,
   callToAction,
   link,
+  navLink,
 ]

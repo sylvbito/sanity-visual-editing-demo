@@ -61,9 +61,14 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export default async function RootLayout({children}: LayoutProps<'/'>) {
   const {isEnabled: isDraftMode} = await draftMode()
+  const {data: settings} = await sanityFetch({
+    query: settingsQuery,
+    stega: false,
+  })
+  const colorPreset = settings?.colorPreset || 'teal'
 
   return (
-    <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}>
+    <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`} data-color-preset={colorPreset}>
       <body>
         <section className="min-h-screen pt-20">
           {isDraftMode && (
