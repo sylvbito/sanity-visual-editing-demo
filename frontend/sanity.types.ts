@@ -495,7 +495,7 @@ export type NavigationQueryResult = {
 
 // Source: sanity/lib/queries.ts
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },    },  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    ...,    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },    },  }
 export type GetPageQueryResult = {
   _id: string
   _type: 'page'
@@ -542,24 +542,9 @@ export type GetPageQueryResult = {
       }
     | {
         _key: string
-        _type: 'testimonial'
-        quote: string
-        author: string
-        role?: string
-        avatar?: {
-          asset?: SanityImageAssetReference
-          media?: unknown
-          hotspot?: SanityImageHotspot
-          crop?: SanityImageCrop
-          _type: 'image'
-        }
-        theme?: 'dark' | 'light' | 'tint'
-        textAlign?: 'center' | 'left'
-        showDivider?: boolean
-        spacingTop?: 'regular' | 'roomy' | 'tight'
-        spacingBottom?: 'regular' | 'roomy' | 'tight'
-      }
-    | {
+        _type: 'infoSection'
+        heading: string
+        subheading?: string
         content: Array<
           | {
               children?: Array<{
@@ -593,13 +578,38 @@ export type GetPageQueryResult = {
               markDefs: null
             }
         >
+        theme?: 'ink' | 'light' | 'tint'
+        textAlign?: 'center' | 'left'
+        measure?: 'auto' | 'comfortable' | 'compact' | 'wide'
+        showDivider?: boolean
+        spacingTop?: 'regular' | 'roomy' | 'tight'
+        spacingBottom?: 'regular' | 'roomy' | 'tight'
+      }
+    | {
+        _key: string
+        _type: 'testimonial'
+        quote: string
+        author: string
+        role?: string
+        avatar?: {
+          asset?: SanityImageAssetReference
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        theme?: 'dark' | 'light' | 'tint'
+        textAlign?: 'center' | 'left'
+        showDivider?: boolean
+        spacingTop?: 'regular' | 'roomy' | 'tight'
+        spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
   > | null
 } | null
 
 // Source: sanity/lib/queries.ts
 // Variable: getHomePageQuery
-// Query: *[_type == 'page' && slug.current == "home"][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },    },  }
+// Query: *[_type == 'page' && slug.current == "home"][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    ...,    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },    },  }
 export type GetHomePageQueryResult = {
   _id: string
   _type: 'page'
@@ -646,24 +656,9 @@ export type GetHomePageQueryResult = {
       }
     | {
         _key: string
-        _type: 'testimonial'
-        quote: string
-        author: string
-        role?: string
-        avatar?: {
-          asset?: SanityImageAssetReference
-          media?: unknown
-          hotspot?: SanityImageHotspot
-          crop?: SanityImageCrop
-          _type: 'image'
-        }
-        theme?: 'dark' | 'light' | 'tint'
-        textAlign?: 'center' | 'left'
-        showDivider?: boolean
-        spacingTop?: 'regular' | 'roomy' | 'tight'
-        spacingBottom?: 'regular' | 'roomy' | 'tight'
-      }
-    | {
+        _type: 'infoSection'
+        heading: string
+        subheading?: string
         content: Array<
           | {
               children?: Array<{
@@ -697,6 +692,31 @@ export type GetHomePageQueryResult = {
               markDefs: null
             }
         >
+        theme?: 'ink' | 'light' | 'tint'
+        textAlign?: 'center' | 'left'
+        measure?: 'auto' | 'comfortable' | 'compact' | 'wide'
+        showDivider?: boolean
+        spacingTop?: 'regular' | 'roomy' | 'tight'
+        spacingBottom?: 'regular' | 'roomy' | 'tight'
+      }
+    | {
+        _key: string
+        _type: 'testimonial'
+        quote: string
+        author: string
+        role?: string
+        avatar?: {
+          asset?: SanityImageAssetReference
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        theme?: 'dark' | 'light' | 'tint'
+        textAlign?: 'center' | 'left'
+        showDivider?: boolean
+        spacingTop?: 'regular' | 'roomy' | 'tight'
+        spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
   > | null
 } | null
@@ -714,8 +734,8 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "settings"][0]': SettingsQueryResult
     '*[_type == "navigation"][0]{title, links[]{..., link{..., "page": page->slug.current, "post": post->slug.current}}}': NavigationQueryResult
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n\n    },\n  }\n': GetPageQueryResult
-    '\n  *[_type == \'page\' && slug.current == "home"][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n\n    },\n  }\n': GetHomePageQueryResult
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    ...,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n\n    },\n  }\n': GetPageQueryResult
+    '\n  *[_type == \'page\' && slug.current == "home"][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    ...,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n\n    },\n  }\n': GetHomePageQueryResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
   }
 }
