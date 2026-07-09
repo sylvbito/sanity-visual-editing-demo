@@ -1,5 +1,6 @@
 import './globals.css'
 
+import {Suspense} from 'react'
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
 import {Inter, IBM_Plex_Mono} from 'next/font/google'
@@ -74,7 +75,9 @@ export default async function RootLayout({children}: LayoutProps<'/'>) {
           {isDraftMode && (
             <>
               <DraftModeToast />
-              <VisualEditing />
+              <Suspense fallback={null}>
+                <VisualEditing />
+              </Suspense>
             </>
           )}
           <SanityLive onError={handleError} />

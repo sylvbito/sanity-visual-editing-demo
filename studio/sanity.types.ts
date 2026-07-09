@@ -15,6 +15,13 @@
 export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: ../sanity.schema.json
+export type NavLink = {
+  _type: 'navLink'
+  label: string
+  link: Link
+  isPrimary?: boolean
+}
+
 export type PageReference = {
   _ref: string
   _type: 'reference'
@@ -50,7 +57,12 @@ export type CallToAction = {
   eyebrow?: string
   heading: string
   body?: BlockContentTextOnly
-  button?: Button
+  buttons?: Array<
+    {
+      _key: string
+    } & Button
+  >
+  visualMode?: 'none' | 'inline' | 'background'
   image?: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -58,15 +70,45 @@ export type CallToAction = {
     crop?: SanityImageCrop
     _type: 'image'
   }
-  theme?: 'light' | 'dark'
-  contentAlignment?: 'textFirst' | 'imageFirst'
+  mediaLayout?: 'textFirst' | 'imageFirst'
+  overlayStrength?: number
+  theme?: 'light' | 'dark' | 'accent'
+  textAlign?: 'left' | 'center'
+  contentWidth?: 'compact' | 'comfortable' | 'wide'
+  spacingTop?: 'tight' | 'regular' | 'roomy' | 'pageTop'
+  spacingBottom?: 'tight' | 'regular' | 'roomy'
+}
+
+export type Testimonial = {
+  _type: 'testimonial'
+  quote: string
+  author: string
+  role?: string
+  avatar?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  theme?: 'light' | 'dark' | 'tint'
+  textAlign?: 'left' | 'center'
+  showDivider?: boolean
+  spacingTop?: 'tight' | 'regular' | 'roomy'
+  spacingBottom?: 'tight' | 'regular' | 'roomy'
 }
 
 export type InfoSection = {
   _type: 'infoSection'
-  heading?: string
+  heading: string
   subheading?: string
-  content?: BlockContent
+  content: BlockContent
+  theme?: 'light' | 'tint' | 'ink'
+  textAlign?: 'left' | 'center'
+  measure?: 'compact' | 'comfortable' | 'wide' | 'auto'
+  showDivider?: boolean
+  spacingTop?: 'tight' | 'regular' | 'roomy'
+  spacingBottom?: 'tight' | 'regular' | 'roomy'
 }
 
 export type BlockContentTextOnly = Array<{
@@ -123,64 +165,23 @@ export type BlockContent = Array<
 
 export type Button = {
   _type: 'button'
-  buttonText?: string
-  link?: Link
+  buttonText: string
+  style?: 'auto' | 'primary' | 'secondary' | 'ghost'
+  link: Link
 }
 
-export type Settings = {
+export type Navigation = {
   _id: string
-  _type: 'settings'
+  _type: 'navigation'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
+  title?: string
+  links?: Array<
+    {
       _key: string
-    }>
-    style?: 'normal'
-    listItem?: never
-    markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
-      href?: string
-      page?: PageReference
-      post?: PostReference
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  ogImage?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    metadataBase?: string
-    _type: 'image'
-  }
-}
-
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x: number
-  y: number
-  height: number
-  width: number
+    } & NavLink
+  >
 }
 
 export type Page = {
@@ -200,7 +201,26 @@ export type Page = {
     | ({
         _key: string
       } & InfoSection)
+    | ({
+        _key: string
+      } & Testimonial)
   >
+}
+
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop'
+  top: number
+  bottom: number
+  left: number
+  right: number
+}
+
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot'
+  x: number
+  y: number
+  height: number
+  width: number
 }
 
 export type PersonReference = {
@@ -256,64 +276,14 @@ export type Slug = {
   source?: string
 }
 
-export type SanityAssistInstructionTask = {
-  _type: 'sanity.assist.instructionTask'
-  path?: string
-  instructionKey?: string
-  started?: string
-  updated?: string
-  info?: string
-}
-
-export type SanityAssistTaskStatus = {
-  _type: 'sanity.assist.task.status'
-  tasks?: Array<
-    {
-      _key: string
-    } & SanityAssistInstructionTask
-  >
-}
-
-export type SanityAssistSchemaTypeAnnotations = {
-  _type: 'sanity.assist.schemaType.annotations'
-  title?: string
-  fields?: Array<
-    {
-      _key: string
-    } & SanityAssistSchemaTypeField
-  >
-}
-
-export type SanityAssistOutputType = {
-  _type: 'sanity.assist.output.type'
-  type?: string
-}
-
-export type SanityAssistOutputField = {
-  _type: 'sanity.assist.output.field'
-  path?: string
-}
-
-export type AssistInstructionContextReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'assist.instruction.context'
-}
-
-export type SanityAssistInstructionContext = {
-  _type: 'sanity.assist.instruction.context'
-  reference: AssistInstructionContextReference
-}
-
-export type AssistInstructionContext = {
+export type Settings = {
   _id: string
-  _type: 'assist.instruction.context'
+  _type: 'settings'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
-  context?: Array<{
+  title: string
+  description?: Array<{
     children?: Array<{
       marks?: Array<string>
       text?: string
@@ -327,70 +297,16 @@ export type AssistInstructionContext = {
     _type: 'block'
     _key: string
   }>
-}
-
-export type SanityAssistInstructionUserInput = {
-  _type: 'sanity.assist.instruction.userInput'
-  message: string
-  description?: string
-}
-
-export type SanityAssistInstructionPrompt = Array<{
-  children?: Array<
-    | {
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
-        _key: string
-      }
-    | ({
-        _key: string
-      } & SanityAssistInstructionFieldRef)
-    | ({
-        _key: string
-      } & SanityAssistInstructionContext)
-    | ({
-        _key: string
-      } & SanityAssistInstructionUserInput)
-  >
-  style?: 'normal'
-  listItem?: never
-  markDefs?: null
-  level?: number
-  _type: 'block'
-  _key: string
-}>
-
-export type SanityAssistInstructionFieldRef = {
-  _type: 'sanity.assist.instruction.fieldRef'
-  path?: string
-}
-
-export type SanityAssistInstruction = {
-  _type: 'sanity.assist.instruction'
-  prompt?: SanityAssistInstructionPrompt
-  icon?: string
-  title?: string
-  userId?: string
-  createdById?: string
-  output?: Array<
-    | ({
-        _key: string
-      } & SanityAssistOutputField)
-    | ({
-        _key: string
-      } & SanityAssistOutputType)
-  >
-}
-
-export type SanityAssistSchemaTypeField = {
-  _type: 'sanity.assist.schemaType.field'
-  path?: string
-  instructions?: Array<
-    {
-      _key: string
-    } & SanityAssistInstruction
-  >
+  ogImage?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  colorPreset?: 'teal' | 'purple' | 'green' | 'orange'
+  headerStyle?: 'minimal' | 'boxed'
 }
 
 export type SanityImagePaletteSwatch = {
@@ -491,36 +407,26 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+  | NavLink
   | PageReference
   | PostReference
   | Link
   | SanityImageAssetReference
   | CallToAction
+  | Testimonial
   | InfoSection
   | BlockContentTextOnly
   | BlockContent
   | Button
-  | Settings
+  | Navigation
+  | Page
   | SanityImageCrop
   | SanityImageHotspot
-  | Page
   | PersonReference
   | Post
   | Person
   | Slug
-  | SanityAssistInstructionTask
-  | SanityAssistTaskStatus
-  | SanityAssistSchemaTypeAnnotations
-  | SanityAssistOutputType
-  | SanityAssistOutputField
-  | AssistInstructionContextReference
-  | SanityAssistInstructionContext
-  | AssistInstructionContext
-  | SanityAssistInstructionUserInput
-  | SanityAssistInstructionPrompt
-  | SanityAssistInstructionFieldRef
-  | SanityAssistInstruction
-  | SanityAssistSchemaTypeField
+  | Settings
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

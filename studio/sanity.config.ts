@@ -17,6 +17,7 @@ export default defineConfig({
       defaultDocumentNode,
     }),
     presentationTool({
+      allowOrigins: ['http://localhost:*', 'https://*.trycloudflare.com'],
       previewUrl: {
         initial: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000',
         previewMode: {
