@@ -17,7 +17,12 @@ export default defineConfig({
       defaultDocumentNode,
     }),
     presentationTool({
-      previewUrl: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000',
+      previewUrl: {
+        initial: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000',
+        previewMode: {
+          enable: `${process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'}/api/draft-mode/enable`,
+        },
+      },
       resolve: {
         mainDocuments: [
           {
@@ -29,9 +34,6 @@ export default defineConfig({
             filter: `_type == "page" && slug.current == $slug`,
           },
         ],
-      },
-      previewMode: {
-        enable: `${process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'}/api/draft-mode/enable`,
       },
     }),
   ],
