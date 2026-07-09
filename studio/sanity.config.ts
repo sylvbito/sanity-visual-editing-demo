@@ -17,7 +17,7 @@ export default defineConfig({
       defaultDocumentNode,
     }),
     presentationTool({
-      previewUrl: 'http://localhost:3000',
+      previewUrl: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000',
       resolve: {
         mainDocuments: [
           {
