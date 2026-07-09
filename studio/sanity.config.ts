@@ -30,6 +30,9 @@ export default defineConfig({
           },
         ],
       },
+      previewMode: {
+        enable: `${process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'}/api/draft-mode/enable`,
+      },
     }),
   ],
   schema: {
