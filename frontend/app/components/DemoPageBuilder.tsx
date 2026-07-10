@@ -7,7 +7,7 @@ type DemoPageBuilderProps = {
   page: {
     _id: string
     _type: string
-    pageBuilder?: PageBuilderSection[]
+    pageBuilder?: PageBuilderSection[] | null
   }
 }
 

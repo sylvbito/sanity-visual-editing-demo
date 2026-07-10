@@ -55,7 +55,7 @@ export default function Testimonial({block}: TestimonialProps) {
   const top = spacingMap[spacingTop] || spacingMap.regular
   const bottom = spacingMap[spacingBottom] || spacingMap.regular
   const isCenter = align === 'center'
-  const hasAvatar = Boolean(avatar?.asset?._ref)
+  const avatarId = avatar?.asset?._ref
 
   return (
     <section className={`${styles.bg} ${top} ${bottom}`}>
@@ -64,9 +64,9 @@ export default function Testimonial({block}: TestimonialProps) {
           &ldquo;{quote}&rdquo;
         </blockquote>
         <div className={`mt-6 flex items-center gap-3 ${isCenter ? 'justify-center' : ''}`}>
-          {hasAvatar && (
+          {avatarId && (
             <Image
-              id={avatar.asset!._ref}
+              id={avatarId}
               alt={author || ''}
               width={48}
               height={48}

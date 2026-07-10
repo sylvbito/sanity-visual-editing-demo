@@ -18,7 +18,7 @@ const paragraph = (text: string, key: string) => ({
   style: 'normal',
 })
 
-export const demoPage: GetPageQueryResult = {
+export const demoPage: NonNullable<GetPageQueryResult> = {
   _id: 'demo-home',
   _type: 'page',
   name: 'Home',
@@ -115,4 +115,4 @@ export const demoPage: GetPageQueryResult = {
       spacingBottom: 'roomy',
     },
   ],
-} as unknown as GetPageQueryResult
+} as unknown as NonNullable<GetPageQueryResult>

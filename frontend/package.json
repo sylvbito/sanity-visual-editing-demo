@@ -10,9 +10,13 @@
     "lint:fix": "eslint . --fix",
     "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields --path ../sanity.schema.json && cd ../frontend && sanity typegen generate",
     "start": "next start",
-    "type-check": "next typegen && tsc --noEmit"
+    "type-check": "next typegen && tsc --noEmit",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.1",
     "@sanity/client": "^7.22.1",
     "@sanity/image-url": "^2.1.1",
     "@sanity/uuid": "^3.0.2",
@@ -38,6 +42,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.7",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.110.0"
   }
 }

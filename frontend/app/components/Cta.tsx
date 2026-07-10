@@ -46,7 +46,7 @@ const themeStyles: Record<string, {bg: string; text: string; pill: string; butto
   },
 }
 
-function resolveButtonStyle(style: string | undefined, index: number): string {
+function resolveButtonStyle(style: string | null | undefined, index: number): string {
   const cleaned = stegaClean(style) || 'auto'
   if (cleaned === 'primary') return 'primary'
   if (cleaned === 'secondary') return 'secondary'
@@ -76,11 +76,12 @@ export default function CTA({block}: CtaProps) {
   const align = stegaClean(textAlign) || 'left'
   const mode = stegaClean(visualMode) || 'inline'
   const mediaDir = stegaClean(mediaLayout) || 'textFirst'
+  const ctaButtons = buttons ?? []
   const styles = themeStyles[t] || themeStyles.light
   const top = spacingMap[spacingTop] || spacingMap.regular
   const bottom = spacingMap[spacingBottom] || spacingMap.regular
   const maxW = widthMap[contentWidth || 'comfortable'] || widthMap.comfortable
-  const hasImage = Boolean(image?.asset?._ref)
+  const imageId = image?.asset?._ref
 
   const contentBlock = (
     <div className={`${align === 'center' ? 'text-center mx-auto' : ''} ${maxW} flex flex-col gap-2`}>
@@ -100,9 +101,9 @@ export default function CTA({block}: CtaProps) {
           />
         </div>
       )}
-      {buttons.length > 0 && (
+      {ctaButtons.length > 0 && (
         <div className={`flex gap-3 mt-2 ${align === 'center' ? 'justify-center' : ''}`}>
-          {buttons.map((btn, i) => {
+          {ctaButtons.map((btn, i) => {
             const resolved = resolveButtonStyle(btn.style, i)
             const ghost = resolved === 'ghost'
             const secondary = resolved === 'secondary'
@@ -127,11 +128,11 @@ export default function CTA({block}: CtaProps) {
   )
 
   // Background image mode
-  if (mode === 'background' && hasImage) {
+  if (mode === 'background' && imageId) {
     return (
       <section className={`relative ${top} ${bottom} ${styles.bg}`}>
         <Image
-          id={image.asset!._ref}
+          id={imageId}
           alt=""
           width={1440}
           mode="cover"
@@ -149,17 +150,17 @@ export default function CTA({block}: CtaProps) {
   }
 
   // Inline image mode
-  if (mode === 'inline' && hasImage) {
+  if (mode === 'inline' && imageId) {
     return (
       <section className={`${styles.bg} ${top} ${bottom}`}>
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {mediaDir === 'imageFirst' && (
               <Image
-                id={image.asset!._ref}
+                id={imageId}
                 alt=""
                 width={704}
-                crop={image.crop}
+                crop={image?.crop}
                 mode="cover"
                 className="rounded-sm w-full"
               />
@@ -171,10 +172,10 @@ export default function CTA({block}: CtaProps) {
             )}
             {mediaDir === 'textFirst' && (
               <Image
-                id={image.asset!._ref}
+                id={imageId}
                 alt=""
                 width={704}
-                crop={image.crop}
+                crop={image?.crop}
                 mode="cover"
                 className="rounded-sm w-full"
               />
