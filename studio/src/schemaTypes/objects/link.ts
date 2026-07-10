@@ -33,15 +33,15 @@ export const link = defineType({
       title: 'URL',
       type: 'url',
       hidden: ({parent}) => parent?.linkType !== 'href',
+      description: 'Paste a full URL. You can leave this blank while building the section and finish it before launch.',
       validation: (Rule) =>
-        // Custom validation to ensure URL is provided if the link type is 'href'
         Rule.custom((value, context) => {
           const parent = context.parent as Link
           if (parent?.linkType === 'href' && !value) {
-            return 'URL is required when Link Type is URL'
+            return 'Add a URL before launch'
           }
           return true
-        }),
+        }).warning(),
     }),
     defineField({
       name: 'page',
@@ -49,15 +49,15 @@ export const link = defineType({
       type: 'reference',
       to: [{type: 'page'}],
       hidden: ({parent}) => parent?.linkType !== 'page',
+      description: 'Choose an existing page. You can leave this blank while building the section and finish it before launch.',
       validation: (Rule) =>
-        // Custom validation to ensure page reference is provided if the link type is 'page'
         Rule.custom((value, context) => {
           const parent = context.parent as Link
           if (parent?.linkType === 'page' && !value) {
-            return 'Page reference is required when Link Type is Page'
+            return 'Choose a destination page before launch'
           }
           return true
-        }),
+        }).warning(),
     }),
     defineField({
       name: 'post',
@@ -65,15 +65,15 @@ export const link = defineType({
       type: 'reference',
       to: [{type: 'post'}],
       hidden: ({parent}) => parent?.linkType !== 'post',
+      description: 'Choose an existing article. You can leave this blank while building the section and finish it before launch.',
       validation: (Rule) =>
-        // Custom validation to ensure post reference is provided if the link type is 'post'
         Rule.custom((value, context) => {
           const parent = context.parent as Link
           if (parent?.linkType === 'post' && !value) {
-            return 'Post reference is required when Link Type is Post'
+            return 'Choose an article before launch'
           }
           return true
-        }),
+        }).warning(),
     }),
     defineField({
       name: 'openInNewTab',
