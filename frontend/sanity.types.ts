@@ -54,8 +54,8 @@ export type FeatureGrid = {
       _key: string
     } & FeatureCard
   >
-  columns?: '2' | '3'
   theme?: 'light' | 'tint' | 'ink'
+  columns?: '2' | '3'
   spacingTop?: 'tight' | 'regular' | 'roomy'
   spacingBottom?: 'tight' | 'regular' | 'roomy'
 }
@@ -137,9 +137,9 @@ export type InfoSection = {
   subheading?: string
   content: BlockContent
   theme?: 'light' | 'tint' | 'ink'
+  showDivider?: boolean
   textAlign?: 'left' | 'center'
   measure?: 'compact' | 'comfortable' | 'wide' | 'auto'
-  showDivider?: boolean
   spacingTop?: 'tight' | 'regular' | 'roomy'
   spacingBottom?: 'tight' | 'regular' | 'roomy'
 }
@@ -608,8 +608,8 @@ export type GetPageQueryResult = {
             openInNewTab?: boolean
           } | null
         }>
-        columns?: '2' | '3'
         theme?: 'ink' | 'light' | 'tint'
+        columns?: '2' | '3'
         spacingTop?: 'regular' | 'roomy' | 'tight'
         spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
@@ -652,9 +652,9 @@ export type GetPageQueryResult = {
             }
         >
         theme?: 'ink' | 'light' | 'tint'
+        showDivider?: boolean
         textAlign?: 'center' | 'left'
         measure?: 'auto' | 'comfortable' | 'compact' | 'wide'
-        showDivider?: boolean
         spacingTop?: 'regular' | 'roomy' | 'tight'
         spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
@@ -757,8 +757,8 @@ export type GetHomePageQueryResult = {
             openInNewTab?: boolean
           } | null
         }>
-        columns?: '2' | '3'
         theme?: 'ink' | 'light' | 'tint'
+        columns?: '2' | '3'
         spacingTop?: 'regular' | 'roomy' | 'tight'
         spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
@@ -801,9 +801,9 @@ export type GetHomePageQueryResult = {
             }
         >
         theme?: 'ink' | 'light' | 'tint'
+        showDivider?: boolean
         textAlign?: 'center' | 'left'
         measure?: 'auto' | 'comfortable' | 'compact' | 'wide'
-        showDivider?: boolean
         spacingTop?: 'regular' | 'roomy' | 'tight'
         spacingBottom?: 'regular' | 'roomy' | 'tight'
       }

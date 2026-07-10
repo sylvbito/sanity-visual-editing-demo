@@ -213,23 +213,6 @@
           },
           "optional": false
         },
-        "columns": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "2"
-              },
-              {
-                "type": "string",
-                "value": "3"
-              }
-            ]
-          },
-          "optional": true
-        },
         "theme": {
           "type": "objectAttribute",
           "value": {
@@ -246,6 +229,23 @@
               {
                 "type": "string",
                 "value": "ink"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "columns": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "2"
+              },
+              {
+                "type": "string",
+                "value": "3"
               }
             ]
           },
@@ -937,6 +937,13 @@
           },
           "optional": true
         },
+        "showDivider": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        },
         "textAlign": {
           "type": "objectAttribute",
           "value": {
@@ -976,13 +983,6 @@
                 "value": "auto"
               }
             ]
-          },
-          "optional": true
-        },
-        "showDivider": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
           },
           "optional": true
         },
