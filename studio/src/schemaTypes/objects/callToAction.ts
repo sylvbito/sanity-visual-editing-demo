@@ -6,6 +6,7 @@ import {
   ImageIcon,
   ControlsIcon,
 } from '@sanity/icons'
+import {RangeSliderInput} from '../../components/RangeSliderInput'
 
 const spacingOptions = [
   {title: 'Tight', value: 'tight'},
@@ -19,6 +20,20 @@ export const callToAction = defineType({
   title: 'Hero / CTA Section',
   type: 'object',
   icon: BulbOutlineIcon,
+  initialValue: {
+    eyebrow: 'New section',
+    heading: 'A clear next step',
+    visualMode: 'none',
+    theme: 'light',
+    buttons: [
+      {
+        _type: 'button',
+        buttonText: 'Get started',
+        style: 'auto',
+        link: {_type: 'link', linkType: 'href', href: '#'},
+      },
+    ],
+  },
   groups: [
     {name: 'content', title: 'Content', icon: ComposeSparklesIcon, default: true},
     {name: 'buttons', title: 'Buttons', icon: LinkIcon},
@@ -99,6 +114,7 @@ export const callToAction = defineType({
       type: 'number',
       initialValue: 52,
       validation: (Rule) => Rule.min(0).max(90),
+      components: {input: RangeSliderInput},
       description: 'Only used when the image is acting as the section background.',
       hidden: ({parent}) => parent?.visualMode !== 'background' || !parent?.image?.asset,
       group: 'visuals',
@@ -116,7 +132,7 @@ export const callToAction = defineType({
         ],
         layout: 'radio',
       },
-      group: 'layout',
+      group: 'content',
     }),
     defineField({
       name: 'textAlign',

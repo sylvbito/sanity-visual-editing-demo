@@ -54,7 +54,14 @@ export const infoSection = defineType({
         ],
         layout: 'radio',
       },
-      group: 'layout',
+      group: 'content',
+    }),
+    defineField({
+      name: 'showDivider',
+      title: 'Show divider',
+      type: 'boolean',
+      initialValue: false,
+      group: 'content',
     }),
     defineField({
       name: 'textAlign',
@@ -85,13 +92,6 @@ export const infoSection = defineType({
         layout: 'radio',
       },
       description: 'Named measure instead of manual max-width tweaking.',
-      group: 'layout',
-    }),
-    defineField({
-      name: 'showDivider',
-      title: 'Show divider',
-      type: 'boolean',
-      initialValue: false,
       group: 'layout',
     }),
     defineField({

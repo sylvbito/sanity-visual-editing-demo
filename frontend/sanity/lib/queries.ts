@@ -55,6 +55,16 @@ const pageBuilderFragments = /* groq */ `
   _type == "testimonial" => {
     ...
   },
+  _type == "featureGrid" => {
+    ...,
+    items[]{
+      ...,
+      link {
+        ...,
+        ${linkReference}
+      }
+    }
+  },
 `
 
 export const getPageQuery = defineQuery(`

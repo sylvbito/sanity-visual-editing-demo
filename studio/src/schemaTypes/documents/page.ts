@@ -51,13 +51,12 @@ export const page = defineType({
         {type: 'callToAction'},
         {type: 'infoSection'},
         {type: 'testimonial'},
+        {type: 'featureGrid'},
       ],
       options: {
         insertMenu: {
           filter: true,
-          views: [
-            {name: 'grid', previewImageUrl: (schemaTypeName) => `/static/${schemaTypeName}.png`},
-          ],
+          views: [{name: 'grid'}],
         },
       },
     }),

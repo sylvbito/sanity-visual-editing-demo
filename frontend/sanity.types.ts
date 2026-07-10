@@ -45,11 +45,44 @@ export type Link = {
   openInNewTab?: boolean
 }
 
+export type FeatureGrid = {
+  _type: 'featureGrid'
+  heading: string
+  intro?: string
+  items: Array<
+    {
+      _key: string
+    } & FeatureCard
+  >
+  columns?: '2' | '3'
+  theme?: 'light' | 'tint' | 'ink'
+  spacingTop?: 'tight' | 'regular' | 'roomy'
+  spacingBottom?: 'tight' | 'regular' | 'roomy'
+}
+
 export type SanityImageAssetReference = {
   _ref: string
   _type: 'reference'
   _weak?: boolean
   [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
+
+export type FeatureCard = {
+  _type: 'featureCard'
+  eyebrow?: string
+  heading: string
+  body?: string
+  visualMode?: 'standard' | 'image' | 'metric'
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  metric?: string
+  metricLabel?: string
+  link?: Link
 }
 
 export type CallToAction = {
@@ -204,6 +237,9 @@ export type Page = {
     | ({
         _key: string
       } & Testimonial)
+    | ({
+        _key: string
+      } & FeatureGrid)
   >
 }
 
@@ -411,7 +447,9 @@ export type AllSanitySchemaTypes =
   | PageReference
   | PostReference
   | Link
+  | FeatureGrid
   | SanityImageAssetReference
+  | FeatureCard
   | CallToAction
   | Testimonial
   | InfoSection
@@ -495,7 +533,7 @@ export type NavigationQueryResult = {
 
 // Source: sanity/lib/queries.ts
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    ...,    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },    },  }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    ...,    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },  _type == "featureGrid" => {    ...,    items[]{      ...,      link {        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },    },  }
 export type GetPageQueryResult = {
   _id: string
   _type: 'page'
@@ -538,6 +576,41 @@ export type GetPageQueryResult = {
         textAlign?: 'center' | 'left'
         contentWidth?: 'comfortable' | 'compact' | 'wide'
         spacingTop?: 'pageTop' | 'regular' | 'roomy' | 'tight'
+        spacingBottom?: 'regular' | 'roomy' | 'tight'
+      }
+    | {
+        _key: string
+        _type: 'featureGrid'
+        heading: string
+        intro?: string
+        items: Array<{
+          _key: string
+          _type: 'featureCard'
+          eyebrow?: string
+          heading: string
+          body?: string
+          visualMode?: 'image' | 'metric' | 'standard'
+          image?: {
+            asset?: SanityImageAssetReference
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          }
+          metric?: string
+          metricLabel?: string
+          link: {
+            _type: 'link'
+            linkType?: 'href' | 'page' | 'post'
+            href?: string
+            page: string | null
+            post: string | null
+            openInNewTab?: boolean
+          } | null
+        }>
+        columns?: '2' | '3'
+        theme?: 'ink' | 'light' | 'tint'
+        spacingTop?: 'regular' | 'roomy' | 'tight'
         spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
     | {
@@ -609,7 +682,7 @@ export type GetPageQueryResult = {
 
 // Source: sanity/lib/queries.ts
 // Variable: getHomePageQuery
-// Query: *[_type == 'page' && slug.current == "home"][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    ...,    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },    },  }
+// Query: *[_type == 'page' && slug.current == "home"][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{        _type == "callToAction" => {    ...,    buttons[]{        _type == "button" => {    _key,    _type,    buttonText,    style,    link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  }    }  },  _type == "infoSection" => {    ...,    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  _type == "testimonial" => {    ...  },  _type == "featureGrid" => {    ...,    items[]{      ...,      link {        ...,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },    },  }
 export type GetHomePageQueryResult = {
   _id: string
   _type: 'page'
@@ -652,6 +725,41 @@ export type GetHomePageQueryResult = {
         textAlign?: 'center' | 'left'
         contentWidth?: 'comfortable' | 'compact' | 'wide'
         spacingTop?: 'pageTop' | 'regular' | 'roomy' | 'tight'
+        spacingBottom?: 'regular' | 'roomy' | 'tight'
+      }
+    | {
+        _key: string
+        _type: 'featureGrid'
+        heading: string
+        intro?: string
+        items: Array<{
+          _key: string
+          _type: 'featureCard'
+          eyebrow?: string
+          heading: string
+          body?: string
+          visualMode?: 'image' | 'metric' | 'standard'
+          image?: {
+            asset?: SanityImageAssetReference
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            _type: 'image'
+          }
+          metric?: string
+          metricLabel?: string
+          link: {
+            _type: 'link'
+            linkType?: 'href' | 'page' | 'post'
+            href?: string
+            page: string | null
+            post: string | null
+            openInNewTab?: boolean
+          } | null
+        }>
+        columns?: '2' | '3'
+        theme?: 'ink' | 'light' | 'tint'
+        spacingTop?: 'regular' | 'roomy' | 'tight'
         spacingBottom?: 'regular' | 'roomy' | 'tight'
       }
     | {
@@ -886,8 +994,8 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "settings"][0]': SettingsQueryResult
     '*[_type == "navigation"][0]{title, links[]{..., link{..., "page": page->slug.current, "post": post->slug.current}}}': NavigationQueryResult
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    ...,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n\n    },\n  }\n': GetPageQueryResult
-    '\n  *[_type == \'page\' && slug.current == "home"][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    ...,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n\n    },\n  }\n': GetHomePageQueryResult
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    ...,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n  _type == "featureGrid" => {\n    ...,\n    items[]{\n      ...,\n      link {\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n\n    },\n  }\n': GetPageQueryResult
+    '\n  *[_type == \'page\' && slug.current == "home"][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      \n  _type == "callToAction" => {\n    ...,\n    buttons[]{\n      \n  _type == "button" => {\n    _key,\n    _type,\n    buttonText,\n    style,\n    link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  }\n\n    }\n  },\n  _type == "infoSection" => {\n    ...,\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n  _type == "testimonial" => {\n    ...\n  },\n  _type == "featureGrid" => {\n    ...,\n    items[]{\n      ...,\n      link {\n        ...,\n        \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n    }\n  },\n\n    },\n  }\n': GetHomePageQueryResult
     '\n  *[(_type == "page" || _type == "post") && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult
     '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult
