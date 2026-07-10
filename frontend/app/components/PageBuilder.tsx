@@ -88,12 +88,32 @@ export default function PageBuilder({page}: PageBuilderPageProps) {
       return currentSections
     }
 
-    // If there are sections in the updated document, use them
+    // The Presentation tool sends the changed section. The old reducer returned the
+    // already-rendered section whenever its _key matched, which discarded every text
+    // edit until a full browser refresh. Merge the incoming patch instead, retaining
+    // any omitted fields/references from the current render.
     if (action.document.pageBuilder) {
-      // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
-      return action.document.pageBuilder.map(
-        (section) => currentSections?.find((s) => s._key === section?._key) || section,
-      )
+      return action.document.pageBuilder.map((section) => {
+        const currentSection = currentSections?.find((item) => item._key === section?._key)
+
+        if (!currentSection) return section
+
+        const currentItems = 'items' in currentSection ? currentSection.items : undefined
+        const nextItems = 'items' in section ? section.items : undefined
+
+        return {
+          ...currentSection,
+          ...section,
+          ...(Array.isArray(nextItems)
+            ? {
+                items: nextItems.map((item) => {
+                  const currentItem = currentItems?.find((existing) => existing._key === item._key)
+                  return currentItem ? {...currentItem, ...item} : item
+                }),
+              }
+            : {}),
+        } as unknown as PageBuilderSection
+      })
     }
 
     // Otherwise keep the current sections
