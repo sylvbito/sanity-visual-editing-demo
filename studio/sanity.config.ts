@@ -12,10 +12,8 @@ export default defineConfig({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
   dataset: process.env.SANITY_STUDIO_DATASET!,
   plugins: [
-    structureTool({
-      structure,
-      defaultDocumentNode,
-    }),
+    // Put the client-facing canvas first: opening the Studio starts in the live draft preview,
+    // rather than the Desk where edits are saved but the public site is only showing published content.
     presentationTool({
       // The shared preview origin is injected by the deployment environment; localhost remains available for development.
       allowOrigins: [
@@ -42,6 +40,10 @@ export default defineConfig({
           },
         ],
       },
+    }),
+    structureTool({
+      structure,
+      defaultDocumentNode,
     }),
   ],
   schema: {
