@@ -9,6 +9,8 @@
   "main": "package.json",
   "scripts": {
     "build": "sanity build",
+    "cf:build": "SANITY_STUDIO_PREVIEW_URL=https://sanity-visual-editor-demo.sylvain97-059.workers.dev sanity build",
+    "cf:deploy": "npm run cf:build && wrangler deploy",
     "deploy": "sanity deploy",
     "predev": "npm run sanity:typegen",
     "dev": "sanity dev",
